@@ -12,19 +12,23 @@ function writePassword() {
 
 var lowerCase= "abcdefghijklmnopqrstuvwxyz"
 var upperCase= lowerCase.toUpperCase();
-var numbers= "1234567890";
-var specialChar= "!#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
+var numbers= "1234567890";``
+var specialChar= "!#$%&'()*+,-./:;<=>?@[]\^_`{|}~";
 var randomNum="";
-var chars="";
 var validation =false;
 
 function generatePassword() {
   var randomPass="";
   var passwordLength= prompt("choose password length between 8-128 characters");
+
+  //checking whether input are 8-128 chars long and whether input is a number
+  //if conditions are not met, users are being re-prompted
   while (passwordLength < 8 || passwordLength > 128||isNaN(passwordLength)===true) {
     window.alert("enter password length from 8 to 128");
     passwordLength= prompt("choose password length from 8 to 128 characters");
   }
+
+  //validating criterias, if not confirmed, users are being prompted to re-answer criterias
   while (validation===false){
     var uppercaseCheck= prompt("include upper-case? (Y/N)").toUpperCase();
     var lowercaseCheck= prompt("include lower-case? (Y/N)").toUpperCase();
@@ -34,26 +38,14 @@ function generatePassword() {
     validation = window.confirm("confirm the following : " + "upper case(" + uppercaseCheck + "), lower case("+ lowercaseCheck + "), numbers(" + numberCheck + "), special characters(" + specialcharCheck + ")");
   
   }
-
-  if (uppercaseCheck === "Y"){
-    chars=chars.concat(upperCase);
-  }
-
-  if (lowercaseCheck === "Y"){
-    chars=chars.concat(lowerCase);
-  }
-
-  if (numberCheck === "Y"){
-    chars = chars.concat(numbers);
-  }
-
-  if(specialcharCheck === "Y"){
-    chars=chars.concat(specialChar);
-  }
-
+  //running for loop until password length criteria is met
   for(randomPass.length;randomPass.length<passwordLength;){
+    //to ensure at least one character type is selected, if statments for each criteria is created
+    //stop generating random password once it's length reaches password length
     if (uppercaseCheck === "Y" && randomPass.length<passwordLength){
+      //picking random number 
       randomNum= Math.floor(Math.random()*upperCase.length);
+      //selecting random char depending on random number
       randomPass+=upperCase.charAt(randomNum);
     }
     if (lowercaseCheck === "Y"&& randomPass.length<passwordLength){
